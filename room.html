@@ -7,20 +7,22 @@
 </head>
 <body>
 
-  <h2>💬 Chat Room</h2>
+  <div class="card">
+    <h2>💬 Chat Room</h2>
 
-  <!-- Username -->
-  <div id="usernameSection">
-    <input id="usernameInput" placeholder="Enter your name">
-    <button onclick="setUsername()">Join Chat</button>
-  </div>
+    <!-- Username -->
+    <div id="usernameSection">
+      <input id="usernameInput" placeholder="Enter your name">
+      <button onclick="setUsername()">Join Chat</button>
+    </div>
 
-  <!-- Chat -->
-  <div id="chatSection" style="display:none;">
-    <div id="messages"></div>
+    <!-- Chat -->
+    <div id="chatSection" style="display:none;">
+      <div id="messages"></div>
 
-    <input id="msg" placeholder="Type a message">
-    <button onclick="sendMessage()">Send</button>
+      <input id="msg" placeholder="Type a message">
+      <button onclick="sendMessage()">Send</button>
+    </div>
   </div>
 
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
