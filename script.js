@@ -42,16 +42,7 @@ socket.on("message", (data) => {
     } else {
       div.classList.add("left");
     }
-
-    const nameDiv = document.createElement("div");
-    nameDiv.classList.add("username");
-    nameDiv.innerText = data.username;
-
-    const textDiv = document.createElement("div");
-    textDiv.innerText = data.text;
-
-    div.appendChild(nameDiv);
-    div.appendChild(textDiv);
+    div.innerText = `${data.username}: ${data.text}`;
   }
 
   messages.appendChild(div);
