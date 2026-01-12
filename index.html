@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Rooms</title>
+</head>
+<body>
+  <h2>Chat Room</h2>
+
+  <button onclick="createRoom()">Create Room</button>
+  <br><br>
+
+  <input id="roomInput" placeholder="Enter Room ID">
+  <button onclick="joinRoom()">Join Room</button>
+
+  <script>
+    function createRoom() {
+      const roomId = Math.random().toString(36).substring(2, 8);
+      window.location.href = `room.html?room=${roomId}`;
+    }
+
+    function joinRoom() {
+      const roomId = document.getElementById("roomInput").value;
+      window.location.href = `room.html?room=${roomId}`;
+    }
+  </script>
+</body>
+</html>
