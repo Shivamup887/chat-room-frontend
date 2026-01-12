@@ -1,16 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Chat Rooms</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h2>Chat Room</h2>
 
-  <button onclick="createRoom()">Create Room</button>
-  <br><br>
+  <div class="card">
+    <h2>💬 Chat Room</h2>
 
-  <input id="roomInput" placeholder="Enter Room ID">
-  <button onclick="joinRoom()">Join Room</button>
+    <button onclick="createRoom()">Create New Room</button>
+
+    <div class="divider">OR</div>
+
+    <input id="roomInput" placeholder="Enter Room ID">
+    <button onclick="joinRoom()">Join Room</button>
+  </div>
 
   <script>
     function createRoom() {
@@ -19,9 +25,14 @@
     }
 
     function joinRoom() {
-      const roomId = document.getElementById("roomInput").value;
+      const roomId = document.getElementById("roomInput").value.trim();
+      if (!roomId) {
+        alert("Please enter a Room ID");
+        return;
+      }
       window.location.href = `room.html?room=${roomId}`;
     }
   </script>
+
 </body>
 </html>
