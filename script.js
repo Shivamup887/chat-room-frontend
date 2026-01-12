@@ -1,7 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 const roomId = params.get("room");
 
-const socket = io("http://localhost:3000");
+const socket = io("https://chat-room-backend-w2ag.onrender.com");
 
 socket.emit("join-room", roomId);
 
