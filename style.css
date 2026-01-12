@@ -127,3 +127,16 @@ button:hover {
 .close-btn:hover {
   color: red;
 }
+
+.call-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.call-btn:hover {
+  background: #218838;
+}
