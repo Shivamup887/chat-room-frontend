@@ -1,11 +1,25 @@
 const params = new URLSearchParams(window.location.search);
 const roomId = params.get("room");
 
-const socket = io("https://chat-room-backend-w2ag.onrender.com");
+const socket = io("https://chat-room-backend-w2ag.onrender.com", {
+  transports: ["websocket"]
+});
 
 socket.emit("join-room", roomId);
 
+socket.on("connect", () => {
+  console.log("CONNECTED:", socket.id);
+});
+
+socket.on("connect_error", (err) => {
+  console.error("CONNECTION ERROR:", err.message);
+});
+
 socket.on("message", (data) => {
+  console.log("MESSAGE RECEIVED:", data);
+
+  if (!data || !data.text) return;
+
   const div = document.createElement("div");
   div.classList.add("message");
 
@@ -18,14 +32,15 @@ socket.on("message", (data) => {
   div.innerText = data.text;
   document.getElementById("messages").appendChild(div);
 
-  // auto-scroll
   document.getElementById("messages").scrollTop =
     document.getElementById("messages").scrollHeight;
 });
 
-
 function sendMessage() {
   const input = document.getElementById("msg");
-  socket.emit("chat-message", input.value);
+  const text = input.value.trim();
+  if (!text) return;
+
+  socket.emit("chat-message", text);
   input.value = "";
 }
