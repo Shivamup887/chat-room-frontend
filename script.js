@@ -27,6 +27,11 @@ function setUsername() {
   document.getElementById("chatSection").style.display = "block";
 }
 
+function closeChat() {
+  socket.disconnect();
+  window.location.href = "index.html";
+}
+
 // receive messages
 socket.on("message", (data) => {
   const messages = document.getElementById("messages");
