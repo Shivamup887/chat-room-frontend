@@ -88,3 +88,14 @@ button:hover {
   align-self: flex-end;
   border-bottom-right-radius: 4px;
 }
+
+#messages {
+  height: 300px;
+  overflow-y: auto;
+}
+
+@media (max-width: 600px) {
+  #messages {
+    height: calc(100vh - 230px);
+  }
+}

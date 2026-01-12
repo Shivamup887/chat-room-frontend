@@ -2,7 +2,7 @@ const params = new URLSearchParams(window.location.search);
 const roomId = params.get("room");
 
 const socket = io("https://chat-room-backend-w2ag.onrender.com", {
-  transports: ["websocket"]
+  transports: ["polling", "websocket"]
 });
 
 socket.emit("join-room", roomId);
