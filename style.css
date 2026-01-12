@@ -1,101 +1,35 @@
-* {
-  box-sizing: border-box;
-  font-family: "Segoe UI", Arial, sans-serif;
-}
-
 body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.card {
-  background: #ffffff;
-  padding: 30px;
-  width: 100%;
-  max-width: 380px;
-  border-radius: 14px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-  text-align: center;
-}
-
-h2 {
-  margin-bottom: 25px;
-  color: #333;
-}
-
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 12px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #667eea;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #5a67d8;
-}
-
-.divider {
-  margin: 20px 0;
-  color: #888;
-}
-
-/* Chat container */
-#messages {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* Common bubble style */
-.message {
-  max-width: 75%;
-  padding: 10px 14px;
-  border-radius: 14px;
-  font-size: 15px;
-  line-height: 1.4;
-  word-wrap: break-word;
-}
-
-/* Left (other users) */
-.message.left {
-  background: #f1f1f1;
-  align-self: flex-start;
-  border-bottom-left-radius: 4px;
-}
-
-/* Right (your message) */
-.message.right {
-  background: #667eea;
-  color: white;
-  align-self: flex-end;
-  border-bottom-right-radius: 4px;
+  font-family: Arial, sans-serif;
 }
 
 #messages {
   height: 300px;
   overflow-y: auto;
+  margin: 10px 0;
+}
+
+.message {
+  padding: 8px 10px;
+  margin: 5px 0;
+  max-width: 75%;
+  border-radius: 10px;
+  word-wrap: break-word;
+}
+
+.left {
+  background: #e4e6eb;
+  text-align: left;
+}
+
+.right {
+  background: #0084ff;
+  color: white;
+  margin-left: auto;
+  text-align: right;
 }
 
 @media (max-width: 600px) {
   #messages {
-    height: calc(100vh - 230px);
+    height: calc(100vh - 250px);
   }
 }

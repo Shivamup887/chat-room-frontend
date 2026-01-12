@@ -1,46 +1,71 @@
 const params = new URLSearchParams(window.location.search);
 const roomId = params.get("room");
 
+let username = "";
+
+// IMPORTANT: Replace YOUR_RENDER_URL with your actual Render backend URL
 const socket = io("https://chat-room-backend-w2ag.onrender.com", {
   transports: ["polling", "websocket"]
 });
 
+// try joining room
 socket.emit("join-room", roomId);
 
-socket.on("connect", () => {
-  console.log("CONNECTED:", socket.id);
-});
+// set username
+function setUsername() {
+  const input = document.getElementById("usernameInput");
+  const name = input.value.trim();
 
-socket.on("connect_error", (err) => {
-  console.error("CONNECTION ERROR:", err.message);
-});
+  if (!name) {
+    alert("Please enter your name");
+    return;
+  }
 
+  username = name;
+
+  document.getElementById("usernameSection").style.display = "none";
+  document.getElementById("chatSection").style.display = "block";
+}
+
+// receive messages
 socket.on("message", (data) => {
-  console.log("MESSAGE RECEIVED:", data);
-
-  if (!data || !data.text) return;
-
+  const messages = document.getElementById("messages");
   const div = document.createElement("div");
   div.classList.add("message");
 
-  if (data.senderId === socket.id) {
-    div.classList.add("right");
-  } else {
+  if (data.senderId === "system") {
     div.classList.add("left");
+    div.innerText = data.text;
+  } else {
+    if (data.senderId === socket.id) {
+      div.classList.add("right");
+    } else {
+      div.classList.add("left");
+    }
+    div.innerText = `${data.username}: ${data.text}`;
   }
 
-  div.innerText = data.text;
-  document.getElementById("messages").appendChild(div);
-
-  document.getElementById("messages").scrollTop =
-    document.getElementById("messages").scrollHeight;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
 });
 
+// send message
 function sendMessage() {
   const input = document.getElementById("msg");
   const text = input.value.trim();
-  if (!text) return;
 
-  socket.emit("chat-message", text);
+  if (!text || !username) return;
+
+  socket.emit("chat-message", {
+    text,
+    username
+  });
+
   input.value = "";
 }
+
+// room full handling
+socket.on("room-full", () => {
+  alert("Room is full. Only 2 users allowed.");
+  window.location.href = "index.html";
+});
