@@ -11,8 +11,6 @@
   <div class="card">
     <h2>💬 Chat Room</h2>
 
-    <button onclick="createRoom()">Create New Room</button>
-
     <div class="divider">OR</div>
 
     <input id="roomInput" placeholder="Enter Room ID">
@@ -20,10 +18,6 @@
   </div>
 
   <script>
-    function createRoom() {
-      const roomId = Math.random().toString(36).substring(2, 8);
-      window.location.href = `room.html?room=${roomId}`;
-    }
 
     function joinRoom() {
       const roomId = document.getElementById("roomInput").value.trim();
@@ -37,3 +31,4 @@
 
 </body>
 </html>
+
