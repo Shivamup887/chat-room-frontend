@@ -22,7 +22,16 @@
     </div>
 
     <!-- Chat -->
+    
     <div id="chatSection" style="display:none;">
+
+      <!-- new section can be deleted -->
+      <div style="display:flex; gap:8px; margin-bottom:10px;">
+          <button onclick="loadOldMessages()">📜 Load old messages</button>
+          <button onclick="deleteAllMessages()">🗑️ Delete all messages</button>
+      </div>
+      <!-- new section can be deleted -->
+      
       <div id="messages"></div>
 
       <input id="msg" placeholder="Type a message">
@@ -35,3 +44,4 @@
 
 </body>
 </html>
+
