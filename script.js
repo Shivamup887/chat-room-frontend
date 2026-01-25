@@ -5,6 +5,8 @@ let username = "";
 let localStream = null;
 let peerConnection = null;
 let inCall = false;
+let historyLoaded = false;
+
 
 // IMPORTANT: Replace YOUR_RENDER_URL with your actual Render backend URL
 const socket = io("https://chat-room-backend-w2ag.onrender.com", {
@@ -22,8 +24,14 @@ function setUsername() {
   if (!name) {
     alert("Please enter your name");
     return;
-  }
 
+  }
+  if (roomId !== "momoshi") {
+  document.querySelector("button[onclick='loadOldMessages()']").style.display = "none";
+  document.querySelector("button[onclick='deleteAllMessages()']").style.display = "none";
+  
+  }
+  
   username = name;
 
   document.getElementById("usernameSection").style.display = "none";
@@ -105,6 +113,38 @@ socket.on("ice-candidate", async (candidate) => {
   }
 });
 
+
+
+
+// receive old saved messages
+socket.on("old-messages", (messages) => {
+  const messagesDiv = document.getElementById("messages");
+
+  // prevent duplicate loading
+  messagesDiv.innerHTML = "";
+
+  messages.forEach(msg => {
+    const div = document.createElement("div");
+    div.classList.add("message", "left");
+    div.innerText = `${msg.username}: ${msg.text}`;
+    messagesDiv.appendChild(div);
+  });
+
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+});
+
+// confirmation after delete
+socket.on("messages-deleted", () => {
+  document.getElementById("messages").innerHTML = "";
+  alert("All messages deleted ✅");
+});
+
+
+
+
+
+
+
 function endCall() {
   if (!inCall) return;
 
@@ -152,6 +192,20 @@ function sendMessage() {
 
   input.value = "";
 }
+// request old messages (only for mo)
+function loadOldMessages() {
+  if (historyLoaded) return;
+  historyLoaded = true;
+  socket.emit("load-old-messages");
+}
+
+// delete all saved messages (only for mo)
+function deleteAllMessages() {
+  const ok = confirm("Are you sure you want to delete ALL saved messages?");
+  if (!ok) return;
+
+  socket.emit("delete-all-messages");
+}
 
 function confirmCall() {
   const ok = confirm("Do you want to start a voice call?");
@@ -165,5 +219,6 @@ socket.on("room-full", () => {
   alert("Room is full. Only 2 users allowed.");
   window.location.href = "index.html";
 });
+
 
 
